@@ -8,6 +8,7 @@ import images #image module
 import os
 
 client=discord.Client()
+channel = message.channel
 audioQueue = []
 
 players = {}
