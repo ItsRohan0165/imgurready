@@ -38,6 +38,7 @@ async def on_message(message):
                        '!pause  --> Pauses the current song\n'
                        '!resume  --> Continues the current song\n'
                        '!quit  --> Removes the bot from the voice channel')
+        channel = message.channel
         await  channel.send(helpCommand)
 
 # ----------------------- IMAGE COMMANDS ------------------------------
@@ -58,7 +59,7 @@ async def on_message(message):
 
 
 #Shows the queue
-    elif message.content.lower().startswith('--queue'):
+    elif message.content.lower().startswith('--queue')
         await  channel.send(audioQueue)
 
 
