@@ -1,4 +1,5 @@
 import discord #the discord.py library
+from discord import utils, Client
 import asyncio #required to run async methods
 import random #rng
 import configparser #pulls credentials from auth.ini
@@ -6,8 +7,6 @@ import youtube_dl #music
 import images #image module
 import os
 
-
-client = commands.Bot()
 
 audioQueue = []
 
