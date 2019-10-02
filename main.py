@@ -8,7 +8,6 @@ import images #image module
 import os
 
 client=discord.Client()
-channel = message.channel
 audioQueue = []
 
 players = {}
@@ -45,6 +44,7 @@ async def on_message(message):
 # ----------------------- IMAGE COMMANDS ------------------------------
 #Shows the top viewed image on the imgur frontpage
     elif message.content.lower().startswith('/top'):
+        channel = message.channel
         await  channel.send('Right now the most viewed image on the imgur frontpage is: ' + images.topCommand().link)
 
 #Shows a random image with the tag you mentioned
@@ -52,8 +52,10 @@ async def on_message(message):
         tag = message.content[5:]
         result = images.imgCommand(tag)
         if not result:
+            channel = message.channel
             await channel.send('No images found for that tag :frowning:')
         else:
+            channel = message.channel
             await channel.send(result.link)
 
 #---------------------------------- MUSIC COMMANDS ---------------------------------
@@ -61,6 +63,7 @@ async def on_message(message):
 
 #Shows the queue
     elif message.content.lower().startswith('--queue'):
+        channel = message.channel
         await  channel.send(audioQueue)
 
 
