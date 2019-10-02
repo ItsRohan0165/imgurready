@@ -7,20 +7,20 @@ import youtube_dl #music
 import images #image module
 import os
 
-bot=discord.Client()
+client=discord.Client()
 audioQueue = []
 
 players = {}
 
 
-@bot.event #startup
+@client.event #startup
 async def on_ready():
     print('Bot running')
     
 
 
 
-@bot.event #commands
+@client.event #commands
 async def on_message(message):
 #chat log
     if message:
