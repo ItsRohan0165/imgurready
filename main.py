@@ -13,14 +13,14 @@ audioQueue = []
 players = {}
 
 
-@bot.event #startup
+@client.event #startup
 async def on_ready():
     print('Bot running')
     
 
 
 
-@bot.event #commands
+@client.event #commands
 async def on_message(message):
 #chat log
     if message:
@@ -55,46 +55,7 @@ async def on_message(message):
             await ctx.send(message.channel, result.link)
 
 #---------------------------------- MUSIC COMMANDS ---------------------------------
-#Lets the bot leave voice
-    elif message.content.lower().startswith('--quit'):
-        voice_client = bot.voice_client_in(message.server)
-        if not voice_client:
-            await ctx.send(message.channel, 'I\'m not in a voice channel right now')
-        else:
-            await voice_client.disconnect()
 
-#Lets the bot join your voice channel and plays a song
-    elif message.content.lower().startswith('--play'):
-        yt_url = message.content[6:]
-        channel = message.author.voice.voice_channel
-        if not channel:
-            await ctx.send(message.channel, 'You have to be in a voice channel')
-        else:
-            voice_client = bot.voice_client_in(message.server)
-            if not voice_client:
-                voice = await bot.join_voice_channel(channel)
-                if not yt_url:
-                    await ctx.send(message.channel, 'You have to provide a link to a youtube video')
-                else:
-                    player = await voice.create_ytdl_player(yt_url)
-                    players[message.server.id] = player
-                    player.start()
-            else:
-                await ctx.send(message.channel, 'Please use !add [Youtube link] to add songs to the queue')
-
-#Pauses the song
-    elif message.content.lower().startswith('--pause'):
-        players[message.server.id].pause()
-
-#Continues the song
-    elif message.content.lower().startswith('--resume'):
-        players[message.server.id].resume()
-
-#Adds a song to the queue
-    elif message.content.lower().startswith('!add'):
-        yt_url = message.content[5:]
-        audioQueue.append(yt_url)
-       
 
 #Shows the queue
     elif message.content.lower().startswith('--queue'):
