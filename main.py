@@ -62,4 +62,4 @@ async def on_message(message):
         await ctx.send(message.channel, audioQueue)
 
 
-bot.run(os.getenv('TOKEN'))
+client.run(os.getenv('TOKEN'))
