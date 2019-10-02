@@ -59,7 +59,7 @@ async def on_message(message):
 
 
 #Shows the queue
-    elif message.content.lower().startswith('--queue')
+    elif message.content.lower().startswith('--queue'):
         await  channel.send(audioQueue)
 
 
