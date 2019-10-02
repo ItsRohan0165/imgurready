@@ -1,0 +1,4 @@
+imgurpython
+youtube_dl
+configparser
+asyncio
