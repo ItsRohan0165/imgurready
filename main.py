@@ -38,28 +38,28 @@ async def on_message(message):
                        '!pause  --> Pauses the current song\n'
                        '!resume  --> Continues the current song\n'
                        '!quit  --> Removes the bot from the voice channel')
-        await ctx.send(message.channel, helpCommand)
+        await client.send_message(message.channel, helpCommand)
 
 # ----------------------- IMAGE COMMANDS ------------------------------
 #Shows the top viewed image on the imgur frontpage
     elif message.content.lower().startswith('/top'):
-        await ctx.send(message.channel, 'Right now the most viewed image on the imgur frontpage is: ' + images.topCommand().link)
+        await client.send_message(message.channel, 'Right now the most viewed image on the imgur frontpage is: ' + images.topCommand().link)
 
 #Shows a random image with the tag you mentioned
     elif message.content.lower().startswith('/img'):
         tag = message.content[5:]
         result = images.imgCommand(tag)
         if not result:
-            await ctx.send(message.channel, 'No images found for that tag :frowning:')
+            await client.send_message(message.channel, 'No images found for that tag :frowning:')
         else:
-            await ctx.send(message.channel, result.link)
+            await client.send_message(message.channel, result.link)
 
 #---------------------------------- MUSIC COMMANDS ---------------------------------
 
 
 #Shows the queue
     elif message.content.lower().startswith('--queue'):
-        await ctx.send(message.channel, audioQueue)
+        await client.send_message(message.channel, audioQueue)
 
 
 client.run(os.getenv('TOKEN'))
