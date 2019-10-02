@@ -7,7 +7,7 @@ import youtube_dl #music
 import images #image module
 import os
 
-client = discord.Bot()
+client = Bot(description="My Bot")
 audioQueue = []
 
 players = {}
