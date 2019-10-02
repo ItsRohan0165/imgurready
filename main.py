@@ -7,7 +7,7 @@ import images #image module
 import os
 
 
-bot = discord.Client()
+client = commands.Bot()
 
 audioQueue = []
 
@@ -39,28 +39,28 @@ async def on_message(message):
                        '!pause  --> Pauses the current song\n'
                        '!resume  --> Continues the current song\n'
                        '!quit  --> Removes the bot from the voice channel')
-        await bot.send_message(message.channel, helpCommand)
+        await ctx.send(message.channel, helpCommand)
 
 # ----------------------- IMAGE COMMANDS ------------------------------
 #Shows the top viewed image on the imgur frontpage
     elif message.content.lower().startswith('/top'):
-        await bot.send_message(message.channel, 'Right now the most viewed image on the imgur frontpage is: ' + images.topCommand().link)
+        await ctx.send(message.channel, 'Right now the most viewed image on the imgur frontpage is: ' + images.topCommand().link)
 
 #Shows a random image with the tag you mentioned
     elif message.content.lower().startswith('/img'):
         tag = message.content[5:]
         result = images.imgCommand(tag)
         if not result:
-            await bot.send_message(message.channel, 'No images found for that tag :frowning:')
+            await ctx.send(message.channel, 'No images found for that tag :frowning:')
         else:
-            await bot.send_message(message.channel, result.link)
+            await ctx.send(message.channel, result.link)
 
 #---------------------------------- MUSIC COMMANDS ---------------------------------
 #Lets the bot leave voice
     elif message.content.lower().startswith('--quit'):
         voice_client = bot.voice_client_in(message.server)
         if not voice_client:
-            await bot.send_message(message.channel, 'I\'m not in a voice channel right now')
+            await ctx.send(message.channel, 'I\'m not in a voice channel right now')
         else:
             await voice_client.disconnect()
 
@@ -69,19 +69,19 @@ async def on_message(message):
         yt_url = message.content[6:]
         channel = message.author.voice.voice_channel
         if not channel:
-            await bot.send_message(message.channel, 'You have to be in a voice channel')
+            await ctx.send(message.channel, 'You have to be in a voice channel')
         else:
             voice_client = bot.voice_client_in(message.server)
             if not voice_client:
                 voice = await bot.join_voice_channel(channel)
                 if not yt_url:
-                    await bot.send_message(message.channel, 'You have to provide a link to a youtube video')
+                    await ctx.send(message.channel, 'You have to provide a link to a youtube video')
                 else:
                     player = await voice.create_ytdl_player(yt_url)
                     players[message.server.id] = player
                     player.start()
             else:
-                await bot.send_message(message.channel, 'Please use !add [Youtube link] to add songs to the queue')
+                await ctx.send(message.channel, 'Please use !add [Youtube link] to add songs to the queue')
 
 #Pauses the song
     elif message.content.lower().startswith('--pause'):
@@ -95,23 +95,11 @@ async def on_message(message):
     elif message.content.lower().startswith('!add'):
         yt_url = message.content[5:]
         audioQueue.append(yt_url)
-        await bot.add_reaction(message, '✅')
+       
 
 #Shows the queue
     elif message.content.lower().startswith('--queue'):
-        await bot.send_message(message.channel, audioQueue)
-
-#Skips to the next song
-    elif message.content.lower().startswith('--skip'):
-        if not audioQueue:
-            await bot.send_message(message.channel, 'The queue is empty')
-        else:
-            voice = bot.voice_client_in(message.server)
-            players[message.server.id].stop()
-            player =await voice.create_ytdl_player(audioQueue[0])
-            players[message.server.id] = player
-            player.start()
-            del audioQueue[0]
+        await ctx.send(message.channel, audioQueue)
 
 
 bot.run(os.getenv('TOKEN'))
