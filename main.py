@@ -17,7 +17,7 @@ players = {}
 @bot.event #startup
 async def on_ready():
     print('Bot running')
-    await bot.change_presence(game = discord.Game(name = '!help'))
+    
 
 
 
