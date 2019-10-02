@@ -28,7 +28,7 @@ async def on_message(message):
         print(message.channel.name + ': ' + message.author.name + ': ' + message.content)
 
 #help command
-    if message.content.lower().startswith('!help'):
+    if message.content.lower().startswith('--help'):
         helpCommand = ('**__Commands__**\n\n'
                        '__Image(Imgur) commands__:\n'
                        '!top  --> Shows the top viewed image on the imgur frontpage\n'
