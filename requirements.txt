@@ -2,3 +2,4 @@ imgurpython
 youtube_dl
 configparser
 asyncio
+discord.py==1.2.3
