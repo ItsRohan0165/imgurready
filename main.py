@@ -23,9 +23,7 @@ async def on_ready():
 @client.event #commands
 async def on_message(message):
 #chat log
-    if message:
-        print(message.channel.name + ': ' + message.author.name + ': ' + message.content)
-
+   
 #help command
     if message.content.lower().startswith('--help'):
         helpCommand = ('**__Commands__**\n\n'
